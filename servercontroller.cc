@@ -21,7 +21,7 @@ const char * usage =
 "daytime-server.                                               \n"
 "                                                               \n"
 "Then type your name and return. You will get a greeting and   \n"
-"the time of the day.                                          \n"
+"the time of the day.       asdf                                   \n"
 "                                                               \n";
 
 
