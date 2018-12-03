@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Questionaire</title>
+</head>
+<body>
+<h1>Tell us a little bit about yourself...</h1>
+<!--hello-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<form>
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" class="form-control" id="Name" placeholder="i.e. John, Smith">
+        </div>
+        <div class="form-group">
+            <label>Age</label>
+            <input type="number" class="form-control" id="Age">
+        </div>
+        <div class="form-group">
+            <label>Where are you from?</label>
+            <input type="text" class="form-control" id="Location" placeholder="i.e. Austin,TX">
+        </div>
+        <div class="form-group">
+            <label>Looking for...</label>
+            <select class="form-control" id="Sexuality">
+                <option disabled>Select One</option>
+                <option>Men</option>
+                <option>Women</option>
+                <option>Both</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>What year are you?</label>
+            <select class="form-control" id="Year" placeholder="Please select one">
+                <option disabled>Select One</option>
+                <option>Freshman</option>
+                <option>Sophmore</option>
+                <option>Junior</option>
+                <option>Senior</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Major</label>
+            <input type="text" class="form-control" id="Major" placeholder="i.e. Computer Science">
+        </div>
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" class="form-control" id="Number" placeholder="i.e. 5121234567">
+        </div>
+        <div class="form-group">
+            <label>What do you like to do?</label>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Acting">
+                <label class="form-check-label">Acting</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Baking">
+                <label class="form-check-label">Baking</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Beatboxing">
+                <label class="form-check-label">Beatboxing</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Cooking">
+                <label class="form-check-label">Cooking</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Dancing">
+                <label class="form-check-label">Dancing</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Basketball">
+                <label class="form-check-label">Basketball</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Baseball">
+                <label class="form-check-label">Baseball</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Swimming">
+                <label class="form-check-label">Swimming</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Hiking">
+                <label class="form-check-label">Hiking</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Martial Arts">
+                <label class="form-check-label">Martial Arts</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Rock Climbing">
+                <label class="form-check-label">Rock Climbing</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Football">
+                <label class="form-check-label">Football</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Soccer">
+                <label class="form-check-label">Soccer</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Hockey">
+                <label class="form-check-label">Hockey</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Shopping">
+                <label class="form-check-label">Shopping</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>What would be your perfect date?</label>
+            <input type="text" class="form-control" id="Date">
+        </div>
+        <div class="form-group">
+            <input type="submit" name="Questionairesubmit" class="btn btn-info btn-md" value="Submit">
+        </div>
+
+</form>
+
+
+
+</body>
+</html>
