@@ -16,22 +16,26 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<form>
+<form action = "/question" method = "GET">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" name="username" placeholder="i.e. John, Smith">
+        </div>
         <div class="form-group">
             <label>Full Name</label>
-            <input type="text" class="form-control" id="Name" placeholder="i.e. John, Smith">
+            <input type="text" class="form-control" name="Name" placeholder="i.e. John, Smith">
         </div>
         <div class="form-group">
             <label>Age</label>
-            <input type="number" class="form-control" id="Age">
+            <input type="number" class="form-control" name="Age">
         </div>
         <div class="form-group">
             <label>Where are you from?</label>
-            <input type="text" class="form-control" id="Location" placeholder="i.e. Austin,TX">
+            <input type="text" class="form-control" name="Location" placeholder="i.e. Austin,TX">
         </div>
         <div class="form-group">
             <label>Looking for...</label>
-            <select class="form-control" id="Sexuality">
+            <select class="form-control" name="Sexuality">
                 <option disabled>Select One</option>
                 <option>Men</option>
                 <option>Women</option>
@@ -40,7 +44,7 @@
         </div>
         <div class="form-group">
             <label>What year are you?</label>
-            <select class="form-control" id="Year" placeholder="Please select one">
+            <select class="form-control" name="Year" placeholder="Please select one">
                 <option disabled>Select One</option>
                 <option>Freshman</option>
                 <option>Sophmore</option>
@@ -50,73 +54,73 @@
         </div>
         <div class="form-group">
             <label>Major</label>
-            <input type="text" class="form-control" id="Major" placeholder="i.e. Computer Science">
+            <input type="text" class="form-control" name="Major" placeholder="i.e. Computer Science">
         </div>
         <div class="form-group">
             <label>Phone Number</label>
-            <input type="text" class="form-control" id="Number" placeholder="i.e. 5121234567">
+            <input type="text" class="form-control" name="Number" placeholder="i.e. 5121234567">
         </div>
         <div class="form-group">
             <label>What do you like to do?</label>
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Acting">
+                <input class="form-check-input" type="checkbox" value="" id="Acting" name="Interests">
                 <label class="form-check-label">Acting</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Baking">
+                <input class="form-check-input" type="checkbox" value="" id="Baking" name="Interests">
                 <label class="form-check-label">Baking</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Beatboxing">
+                <input class="form-check-input" type="checkbox" value="" id="Beatboxing" name="Interests">
                 <label class="form-check-label">Beatboxing</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Cooking">
+                <input class="form-check-input" type="checkbox" value="" id="Cooking" name="Interests">
                 <label class="form-check-label">Cooking</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Dancing">
+                <input class="form-check-input" type="checkbox" value="" id="Dancing" name="Interests">
                 <label class="form-check-label">Dancing</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Basketball">
+                <input class="form-check-input" type="checkbox" value="" id="Basketball" name="Interests">
                 <label class="form-check-label">Basketball</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Baseball">
+                <input class="form-check-input" type="checkbox" value="" id="Baseball" name="Interests">
                 <label class="form-check-label">Baseball</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Swimming">
+                <input class="form-check-input" type="checkbox" value="" id="Swimming" name="Interests">
                 <label class="form-check-label">Swimming</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Hiking">
+                <input class="form-check-input" type="checkbox" value="" id="Hiking" name="Interests">
                 <label class="form-check-label">Hiking</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Martial Arts">
+                <input class="form-check-input" type="checkbox" value="" id="Martial Arts" name="Interests">
                 <label class="form-check-label">Martial Arts</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Rock Climbing">
+                <input class="form-check-input" type="checkbox" value="" id="Rock Climbing" name="Interests">
                 <label class="form-check-label">Rock Climbing</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Football">
+                <input class="form-check-input" type="checkbox" value="" id="Football" name="Interests">
                 <label class="form-check-label">Football</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Soccer">
+                <input class="form-check-input" type="checkbox" value="" id="Soccer" name="Interests">
                 <label class="form-check-label">Soccer</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Hockey">
+                <input class="form-check-input" type="checkbox" value="" id="Hockey" name="Interests">
                 <label class="form-check-label">Hockey</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Shopping">
+                <input class="form-check-input" type="checkbox" value="" id="Shopping" name="Interests">
                 <label class="form-check-label">Shopping</label>
             </div>
         </div>
