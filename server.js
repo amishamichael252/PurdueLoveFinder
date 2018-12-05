@@ -4,9 +4,12 @@ const express = require('express')
 const port = 20000
 const app = express()
 const shell = require('shelljs');
-
+const Cookies = require('cookies');
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 let sql = 'SELECT * FROM Users where username = ? AND password = ?'
+
 
 
 app.get('/question', (request, response) => {
@@ -101,15 +104,66 @@ app.get('/login', (request, response) => {
 						return console.log(err.message);
 					}
 					console.log('${username} has been added');
+					var cookieToken = Math.random().toString();
+					cookieToken = cookieToken.substring(2, cookieToken.length);
+					response.cookie('name', cookieToken)
+					let token = "UPDATE Users SET token = '" + cookieToken + "' WHERE username = '" + username + "';";
+					db.run(token, function(err) {
+						if (err) {
+							return console.log(err.message);
+						}
+					});
 					response.sendFile(path.join(__dirname + '/src/Questionaire.html'));
 				});
 			} else {
+				console.log(request.cookies['name']);
 				response.sendFile(path.join(__dirname + '/src/Profile.html'));
+				let select = "SELECT * FROM Users WHERE NOT username = '" + username + "';";
+				var matches = [];
+				var currRequest = "SELECT * FROM USers WHERE username = '" + username + "';";
+				var currInterests = [];
+				db.all(currRequest, [], (err, row) => {
+					if (err) {
+						return console.log(err.message);
+					}
+					row.forEach((row) => {
+						console.log("Name: " + row.username + " Interests: " + row.Interests);
+						if (!row.Interests) {
+							console.log("Fill in interests");
+							return;
+						}
+						currInterests = row.Interests.split(",");
+					});
+				});
+				db.all(select, [], (err, row) => {
+					if (err) {
+						return console.log(err.message);
+					}
+					row.forEach((row) => {
+						if (!row.Interests) {
+							console.log("Fill in interests");
+						}
+						else {
+							var arr = row.Interests.split(",");	
+							var matchCount = 0;
+							for (var i = 0; i < currInterests.length; i++) {
+								if (arr.includes(currInterests[i])) {
+									matchCount++;
+								}
+							}
+							var matchName = row.username;
+							var matchString = matchName + " " + matchCount;
+							console.log("MATCHSTRING: " + matchString);
+							matches.push(matchString);
+						}
+					});
+					for (var i = 0; i < matches.length; i++) {
+						console.log(matches[i]);
+					}
+				});
 				/* make array variable
 				run db get and iterate through the row
 				(first see how multiple rows are sent back through row)
-				
-
 				*/
 			}
 			db.close();
@@ -118,7 +172,10 @@ app.get('/login', (request, response) => {
 	
 });
 
-
+app.get('/logout', (request, response) => {
+	response.clearCookie('name');
+	response.sendFile(path.join(__dirname + '/src/FirstPage.html'));
+});
 
 app.get('/', (request, response) => {
 	response.sendFile(path.join(__dirname + '/src/FirstPage.html'))
