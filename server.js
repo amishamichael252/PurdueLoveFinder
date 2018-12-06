@@ -6,10 +6,12 @@ const app = express()
 const shell = require('shelljs');
 const Cookies = require('cookies');
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
 app.use(cookieParser());
 
 let sql = 'SELECT * FROM Users where username = ? AND password = ?'
 
+app.use('/matches', express.static(__dirname + "/matches"));
 
 
 app.get('/question', (request, response) => {
@@ -31,6 +33,7 @@ app.get('/question', (request, response) => {
 	var phone = request.query.Phone;
 	var arr = request.query.interests;
 	var date = request.query.pDate;
+	var sex = request.query.Gender;
 	
 	var sql = "UPDATE Users SET " 
 	+ "FullName = '" + name
@@ -42,6 +45,7 @@ app.get('/question', (request, response) => {
 	+ "', Phone = '" + phone
 	+ "', Interests = '" + arr
 	+ "', PerfectDate = '" + date
+	+ "', Gender = '" + sex
 	+ "' WHERE username = '" + username
 	+ "';";
 	
@@ -61,6 +65,8 @@ app.get('/question', (request, response) => {
 		response.sendFile(path.join(__dirname + '/src/Profile.html'));
 		});
 	});
+	findMatches(username, db);
+	db.close();
 });
 
 app.get('/profile', (request, response) => {
@@ -118,49 +124,7 @@ app.get('/login', (request, response) => {
 			} else {
 				console.log(request.cookies['name']);
 				response.sendFile(path.join(__dirname + '/src/Profile.html'));
-				let select = "SELECT * FROM Users WHERE NOT username = '" + username + "';";
-				var matches = [];
-				var currRequest = "SELECT * FROM USers WHERE username = '" + username + "';";
-				var currInterests = [];
-				db.all(currRequest, [], (err, row) => {
-					if (err) {
-						return console.log(err.message);
-					}
-					row.forEach((row) => {
-						console.log("Name: " + row.username + " Interests: " + row.Interests);
-						if (!row.Interests) {
-							console.log("Fill in interests");
-							return;
-						}
-						currInterests = row.Interests.split(",");
-					});
-				});
-				db.all(select, [], (err, row) => {
-					if (err) {
-						return console.log(err.message);
-					}
-					row.forEach((row) => {
-						if (!row.Interests) {
-							console.log("Fill in interests");
-						}
-						else {
-							var arr = row.Interests.split(",");	
-							var matchCount = 0;
-							for (var i = 0; i < currInterests.length; i++) {
-								if (arr.includes(currInterests[i])) {
-									matchCount++;
-								}
-							}
-							var matchName = row.username;
-							var matchString = matchName + " " + matchCount;
-							console.log("MATCHSTRING: " + matchString);
-							matches.push(matchString);
-						}
-					});
-					for (var i = 0; i < matches.length; i++) {
-						console.log(matches[i]);
-					}
-				});
+				findMatches(username, db);
 				/* make array variable
 				run db get and iterate through the row
 				(first see how multiple rows are sent back through row)
@@ -171,6 +135,101 @@ app.get('/login', (request, response) => {
 	});
 	
 });
+
+function findMatches(username, db) {
+	let select = "SELECT * FROM Users WHERE NOT username = '" + username + "';";
+	var matches = [];
+	var currRequest = "SELECT * FROM USers WHERE username = '" + username + "';";
+	var currInterests = [];
+	var qSex;
+	var qLooking;
+	var qAge;
+	var qMajor;
+	db.all(currRequest, [], (err, row) => {
+			if (err) {
+				return console.log(err.message);
+			}
+			row.forEach((row) => {
+					console.log("Name: " + row.username + " Interests: " + row.Interests);
+					if (!row.Interests) {
+						console.log("Fill in interests");
+						return;
+					}
+					qSex = row.Gender;
+					qLooking = row.LookingFor;
+					qMajor = row.Major;
+					currInterests = row.Interests.split(",");
+			});
+	});
+	db.all(select, [], (err, row) => {
+			if (err) {
+				return console.log(err.message);
+			}
+			row.forEach((row) => {
+					if (!row.Interests) {
+					console.log("Fill in interests");
+					}
+					else {
+					var sex = row.Gender;
+					if (sex == "Female") {
+					sex = "Women";
+					}
+					else if (sex == "Male") {
+					sex = "Men";
+					}
+					var Looking = row.LookingFor;
+					if (Looking == "Men") {
+					Looking = "Male";
+					}
+					else if (Looking == "Women") {
+					Looking = "Female";
+					}
+					var matchCount = 0;
+					console.log("qSex: " + qSex + " Looking: " + Looking + "Sex: " + sex + "qLooking: " + qLooking);
+					if (qSex == Looking || Looking == "Both") { 
+						console.log("Looking 1 pass");
+						if (sex == qLooking || qLooking == "Both") {
+							console.log("Looking 2 pass");
+							var arr = row.Interests.split(",");	
+							var major = row.Major;
+							if (qMajor == major) {
+								matchCount += 5;
+							}					
+							var age = row.Age;
+							if (Math.abs(qAge - age) <= 2) {
+								matchCount += 2;
+							}	
+							for (var i = 0; i < currInterests.length; i++) {
+								if (arr.includes(currInterests[i])) {
+									matchCount++;
+								}
+							}
+						}
+					}
+					if (matchCount != 0) {
+						var matchName = row.FullName;
+						var percentMatch = Math.ceil((matchCount / (7 + currInterests.length)) * 100);
+						var matchString = "Match Name: " + matchName + " Compatibility: " + percentMatch + "% Phone Number: " + row.Phone + "\nGo Gettem Tiger!\n";
+						matches.push(matchString);
+						console.log("MATCHSTRING: " + matchString);
+					}
+					}
+			});
+			var writeString = "";
+			for (var i = 0; i < matches.length; i++) {
+				console.log(matches[i]);
+				writeString += matches[i];
+			}
+			console.log(writeString);
+			fs.writeFile(__dirname + "/matches/matches.txt", writeString, function(err) {
+					if (err) {
+					return console.log(err);
+					}
+					console.log("File saved");
+					});
+			});
+	}
+
 
 app.get('/logout', (request, response) => {
 	response.clearCookie('name');
