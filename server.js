@@ -209,7 +209,7 @@ function findMatches(username, db) {
 					if (matchCount != 0) {
 						var matchName = row.FullName;
 						var percentMatch = Math.ceil((matchCount / (7 + currInterests.length)) * 100);
-						var matchString = "Match Name: " + matchName + " Compatibility: " + percentMatch + "% Phone Number: " + row.Phone + "\nGo Gettem Tiger!\n";
+						var matchString = "Match Name: " + matchName + " Compatibility: " + percentMatch + "% Phone Number: " + row.Phone + "\n";
 						matches.push(matchString);
 						console.log("MATCHSTRING: " + matchString);
 					}
